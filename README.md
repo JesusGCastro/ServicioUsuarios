@@ -5,7 +5,7 @@ Este servicio permite el **registro** e **inicio de sesión** de usuarios, utili
 
 ---
 
-## 🚀 Tecnologías utilizadas
+## Tecnologías utilizadas
 
 | Tecnología | Uso |
 |-----------|-----|
@@ -18,7 +18,7 @@ Este servicio permite el **registro** e **inicio de sesión** de usuarios, utili
 
 ---
 
-## 📦 Instalación y configuración
+## Instalación y configuración
 
 ### 1. Clonar el repositorio:
 ```bash
