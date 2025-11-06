@@ -1,4 +1,5 @@
 import express from 'express';
+import { register, login, registerSorteador } from '../controllers/userController.js';
 import { register, login } from '../controllers/userController.js';
 import { auth } from '../middleware/auth.js';
 import User from '../models/user.js';

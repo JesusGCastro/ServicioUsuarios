@@ -30,12 +30,39 @@ export const login = async (req, res) => {
 
     const isValid = await bcrypt.compare(contrasenia, user.contrasenia);
     if (!isValid) return res.status(401).json({ error: 'Contraseña incorrecta' });
-
-    //Inlcusión del rol en el token JWT
+    
     const token = jwt.sign({ id: user.id, rol: user.rol }, 'secreto', { expiresIn: '1h' });
     
     res.json({ message: 'Inicio de sesión exitoso', token });
   } catch (error) {
     res.status(500).json({ error: 'Error al iniciar sesión', detalle: error.message });
+  }
+};
+
+//Nueva función para crear un usuario y asignarle el rol de sorteador.
+export const registerSorteador = async (req, res) => {
+  try {
+    const { nombre, correo, contrasenia } = req.body;
+
+    const hashedPassword = await bcrypt.hash(contrasenia, 10);
+
+    const user = await User.create({
+      nombre,
+      correo,
+      contrasenia: hashedPassword,
+      rol: 'sorteador'
+    });
+    
+    const userResponse = {
+        id: user.id,
+        nombre: user.nombre,
+        correo: user.correo,
+        rol: user.rol
+    };
+
+    res.status(201).json({ message: 'Sorteador registrado correctamente', user: userResponse });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al registrar sorteador', detalle: error.message });
   }
 };
