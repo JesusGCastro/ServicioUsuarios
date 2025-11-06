@@ -1,5 +1,6 @@
 import express from 'express';
 import { register, login, registerSorteador } from '../controllers/userController.js';
+import { auth, isAdmin } from '../middleware/auth.js';
 import { register, login } from '../controllers/userController.js';
 import { auth } from '../middleware/auth.js';
 import User from '../models/user.js';
@@ -8,6 +9,7 @@ const router = express.Router();
 
 router.post('/register', register);
 router.post('/login', login);
+router.post('/register-sorter', isAdmin, registerSorteador);
 
 // Ruta protegida
 router.get('/perfil', auth, async (req, res) => {

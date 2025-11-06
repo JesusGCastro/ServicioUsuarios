@@ -12,3 +12,15 @@ export const auth = (req, res, next) => {
     res.status(401).json({ error: "Token inválido" });
   }
 };
+
+export const isAdmin = (req, res, next) => {
+  const adminKey = req.headers['x-admin-key'];
+
+  const SUPER_SECRET_KEY = process.env.ADMIN_KEY || 'mi-clave-secreta-12345'; 
+
+  if (!adminKey || adminKey !== SUPER_SECRET_KEY) {
+    return res.status(403).json({ error: 'Acceso denegado. Se requiere clave de administrador.' });
+  }
+  
+  next();
+};
