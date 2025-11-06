@@ -1,15 +1,12 @@
 import express from 'express';
 import userRoutes from './routes/userRoutes.js';
-import sequelize from './config/db.js';
+import cors from 'cors';
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
-// 👇 Aquí montas las rutas
+// Montar rutas
 app.use('/api/users', userRoutes);
-
-sequelize.authenticate()
-  .then(() => console.log('Conectado a PostgreSQL'))
-  .catch(err => console.error('Error de conexión:', err));
 
 export default app;
