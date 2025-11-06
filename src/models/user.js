@@ -6,6 +6,20 @@ const User = sequelize.define('User', {
   nombre: { type: DataTypes.STRING, allowNull: false, unique: true },
   correo: { type: DataTypes.STRING, allowNull: false, unique: true },
   contrasenia: { type: DataTypes.STRING, allowNull: false },
+
+  
+  rol: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'participante',
+    validate: {
+      isIn: [['participante', 'sorteador']]
+    }
+  }
 });
+
+
+
+
 
 export default User;
