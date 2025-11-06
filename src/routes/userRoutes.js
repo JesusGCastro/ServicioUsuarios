@@ -12,7 +12,20 @@ router.post('/login', login);
 router.get('/perfil', auth, async (req, res) => {
   try {
     const usuario = await User.findByPk(req.userId);
-    res.json(usuario);
+    
+    if (!usuario) {
+        return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    const perfilUsuario = {
+        id: usuario.id,
+        nombre: usuario.nombre,
+        correo: usuario.correo,
+        rol: usuario.rol 
+    };
+
+    res.json(perfilUsuario);
+
   } catch (err) {
     res.status(500).json({ error: 'Error al obtener perfil' });
   }
