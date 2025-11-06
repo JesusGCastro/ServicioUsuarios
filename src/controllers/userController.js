@@ -31,10 +31,11 @@ export const login = async (req, res) => {
     const isValid = await bcrypt.compare(contrasenia, user.contrasenia);
     if (!isValid) return res.status(401).json({ error: 'Contraseña incorrecta' });
 
-    const token = jwt.sign({ id: user.id }, 'secreto', { expiresIn: '1h' });
+    //Inlcusión del rol en el token JWT
+    const token = jwt.sign({ id: user.id, rol: user.rol }, 'secreto', { expiresIn: '1h' });
+    
     res.json({ message: 'Inicio de sesión exitoso', token });
   } catch (error) {
     res.status(500).json({ error: 'Error al iniciar sesión', detalle: error.message });
   }
 };
-
